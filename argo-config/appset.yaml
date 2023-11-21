@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1aplha1
+kind: ApplicationSet
+metadata:
+  name: demo-monorepo-apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoUrl: https://github.com/isubuz/argocd-helm-monorepo.git
+        revision: HEAD
+        files:
+          - path: "helm-values/dev/*.yaml"
+  template:
+    metadata:
+      name: '{{ path.basename }}-{{ index (splitList "." .path.filenameNormalized) 0 }}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/isubuz/argocd-helm-monorepo.git
+        targetRevision: HEAD
+        path: "guestbook-chart"
+        helm:
+          valueFiles:
+            - "{{ .path.path }}/{{ .path.filename }}"
+    syncPolicy:
+      automated:
+        prune: true
+      syncOptions:
+        - CreateNamespace=false
+    destination:
+      namespace: "{{ path.basename }}"
+      server: https://kubernetes.default.svc
+

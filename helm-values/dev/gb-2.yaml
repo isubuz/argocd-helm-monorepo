@@ -1,0 +1,4 @@
+name: gb-2
+
+service:
+  type: 30002
