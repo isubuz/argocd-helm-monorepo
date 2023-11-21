@@ -4,6 +4,7 @@ metadata:
   name: demo-monorepo-apps
   namespace: argocd
 spec:
+  goTemplate: true
   generators:
     - git:
         repoUrl: https://github.com/isubuz/argocd-helm-monorepo.git
@@ -12,22 +13,21 @@ spec:
           - path: "helm-values/dev/*.yaml"
   template:
     metadata:
-      name: '{{ path.basename }}-{{ index (splitList "." .path.filenameNormalized) 0 }}'
+      name: '{{ .path.basename }}-{{ index (splitList "." .path.filenameNormalized) 0 }}'
     spec:
       project: default
       source:
         repoURL: https://github.com/isubuz/argocd-helm-monorepo.git
         targetRevision: HEAD
-        path: "guestbook-chart"
+        path: chart
         helm:
           valueFiles:
-            - "{{ .path.path }}/{{ .path.filename }}"
-    syncPolicy:
-      automated:
-        prune: true
-      syncOptions:
-        - CreateNamespace=false
-    destination:
-      namespace: "{{ path.basename }}"
-      server: https://kubernetes.default.svc
-
+            - "../{{ .path.path }}/{{ .path.filename }}"
+      syncPolicy:
+        automated:
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
+      destination:
+        namespace: "{{ .path.basename }}"
+        server: https://kubernetes.default.svc

@@ -1,4 +1,4 @@
 name: gb-2
-
 service:
-  type: 30002
+  port: 30002
+releaseId: 3
