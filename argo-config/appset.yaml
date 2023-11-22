@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1aplha1
 kind: ApplicationSet
 metadata:
   name: demo-monorepo-apps
-  namespace: argocd
+  namespace: argo-dev
 spec:
   goTemplate: true
   generators:
