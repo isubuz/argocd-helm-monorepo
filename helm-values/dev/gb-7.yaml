@@ -1,0 +1,4 @@
+name: gb-7
+service:
+  port: 30007
+releaseId: 3
