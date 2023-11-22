@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1aplha1
 kind: ApplicationSet
 metadata:
-  name: demo-monorepo-apps
+  name: dev
   namespace: argocd
 spec:
   goTemplate: true
@@ -10,14 +10,14 @@ spec:
         repoUrl: https://github.com/isubuz/argocd-helm-monorepo.git
         revision: HEAD
         files:
-          - path: "helm-values/*/*.yaml"
+          - path: "helm-values/dev/*.yaml"
   template:
     metadata:
       name: '{{ .path.basename }}-{{ index (splitList "." .path.filenameNormalized) 0 }}'
       labels:
         name: helm-guestbook
     spec:
-      project: "{{ .path.basename }}"
+      project: dev
       source:
         repoURL: https://github.com/isubuz/argocd-helm-monorepo.git
         targetRevision: HEAD
