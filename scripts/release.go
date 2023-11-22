@@ -86,8 +86,4 @@ func main() {
 			check(err)
 		}
 	}
-	// update release snapshot file
-	fmt.Printf("Writing next release id (%d) to file\n", nextReleaseId)
-	err = os.WriteFile("release.txt", []byte(strconv.Itoa(nextReleaseId)), 0644)
-	check(err)
 }
