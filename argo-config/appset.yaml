@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1aplha1
 kind: ApplicationSet
 metadata:
   name: demo-monorepo-apps
-  namespace: argo-dev
+  namespace: argocd
 spec:
   goTemplate: true
   generators:
@@ -10,7 +10,7 @@ spec:
         repoUrl: https://github.com/isubuz/argocd-helm-monorepo.git
         revision: HEAD
         files:
-          - path: "helm-values/dev/*.yaml"
+          - path: "helm-values/*/*.yaml"
   template:
     metadata:
       name: '{{ .path.basename }}-{{ index (splitList "." .path.filenameNormalized) 0 }}'
