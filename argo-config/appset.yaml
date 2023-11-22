@@ -17,7 +17,7 @@ spec:
       labels:
         name: helm-guestbook
     spec:
-      project: default
+      project: "{{ .path.basename }}"
       source:
         repoURL: https://github.com/isubuz/argocd-helm-monorepo.git
         targetRevision: HEAD
