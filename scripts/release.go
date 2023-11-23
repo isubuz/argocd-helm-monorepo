@@ -16,7 +16,7 @@ func check(e error) {
 	}
 }
 
-var ENVS = []string{"dev", "staging", "qa"}
+var ENVS = []string{"dev", "qa"}
 
 func fileExists(fileName string) bool {
 	_, err := os.Stat(fileName)
