@@ -27,7 +27,6 @@ spec:
             - "../{{ .path.path }}/{{ .path.filename }}"
       syncPolicy:
         automated:
-          prune: true
         syncOptions:
           - CreateNamespace=true
       destination:
