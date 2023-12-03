@@ -1,4 +1,3 @@
 # argocd-helm-monorepo
 
-Test
 
